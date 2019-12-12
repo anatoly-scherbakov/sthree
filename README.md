@@ -3,15 +3,15 @@
 ## Installation
 
 ```shell script
-pip install three
+pip install sthree
 ```
 
-`three` requires `boto3` for its operation, but it is not listed as package dependency because, if you'd want to use `three` in AWS Lambda, you do not need to install `boto3` there - since it is already installed.
+`sthree` requires `boto3` for its operation, but it is not listed as package dependency because, if you'd want to use `sthree` in AWS Lambda, you do not need to install `boto3` there - since it is already installed.
 
 If you're not using Lambda you may run
 
 ```shell script
-pip install three[boto]
+pip install sthree[boto]
 ```
 
 to make sure all dependencies are satisfied.

@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="sthree",
-    version="0.1.0",
+    version="0.1.1",
     author="Anatoly Scherbakov",
     author_email="altaisoft@gmail.com",
     description=(
