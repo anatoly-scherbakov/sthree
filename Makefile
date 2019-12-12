@@ -1,4 +1,4 @@
-.PHONY: clean develop pypi
+.PHONY: clean develop pypi dist
 
 system_python := $(shell which python3.7)
 
