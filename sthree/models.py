@@ -8,7 +8,20 @@ ETag = NewType('ETag', str)
 
 
 class StorageClass(str, Enum):
+    """
+    AWS S3 Storage classes
+
+    https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html
+    """
+
     STANDARD = 'STANDARD'
+    REDUCED_REDUNDANCY = 'REDUCED_REDUNDANCY'
+    INTELLIGENT_TIERING = 'INTELLIGENT_TIERING'
+    STANDARD_IA = 'STANDARD_IA'
+    ONEZONE_IA = 'ONEZONE_IA'
+
+    GLACIER = 'GLACIER'
+    DEEP_ARCHIVE = 'DEEP_ARCHIVE'
 
 
 @dataclasses.dataclass(frozen=True)
