@@ -28,6 +28,7 @@ setuptools.setup(
         'dev': [
             'pytest',
             'boto3',
+            'moto',
             'fire'
         ]
     },
