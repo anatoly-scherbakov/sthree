@@ -2,10 +2,10 @@ import itertools
 
 import pytest
 
-from sthree import S3RecursiveKeyStream
+from sthree import Keys
 
 
-class TestKeyStream(S3RecursiveKeyStream):
+class TestKeyStream(Keys):
     url = 's3://homo-yetiensis'
 
 

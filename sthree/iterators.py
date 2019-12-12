@@ -9,12 +9,20 @@ from typing import Iterable
 from . import models
 
 
-class S3RecursiveKeyStream(Iterable[models.Key]):
+class Keys(Iterable[models.Key]):
     url: Optional[str] = None
+    include_pseudo_directories = False
 
-    def __init__(self, url: Optional[str] = None):
+    def __init__(
+            self,
+            url: Optional[str] = None,
+            include_pseudo_directories: bool = None
+    ):
         if url is not None:
             self.url = url
+
+        if include_pseudo_directories is not None:
+            self.include_pseudo_directories = include_pseudo_directories
 
         if self.url is None:
             raise ValueError(f'{self} does not have `url` defined.')
@@ -39,7 +47,7 @@ class S3RecursiveKeyStream(Iterable[models.Key]):
 
             record: dict
             for record in records:
-                yield models.Key(
+                key = models.Key(
                     key=record['Key'],
                     last_modified=record['LastModified'],
                     size=record['Size'],
@@ -48,6 +56,12 @@ class S3RecursiveKeyStream(Iterable[models.Key]):
                         record['StorageClass']
                     )
                 )
+
+                if (
+                    self.include_pseudo_directories
+                    or not key.is_pseudo_directory
+                ):
+                    yield key
 
     def __iter__(self):
         return self._recurse()

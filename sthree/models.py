@@ -20,5 +20,5 @@ class Key:
     storage_class: StorageClass
 
     @property
-    def is_directory(self):
+    def is_pseudo_directory(self):
         return self.key.endswith('/') and self.size == 0
