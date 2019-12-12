@@ -1,10 +1,9 @@
 import dataclasses
-from typing import Iterable, Iterator, Union, cast, Optional
+from typing import Iterable, Iterator, Union, Optional
 
 import boto3
 from boto3_type_annotations import s3
 from boto3_type_annotations.s3.paginator import ListObjectsV2
-from botocore.paginate import PageIterator
 
 from . import models
 

@@ -29,7 +29,8 @@ setuptools.setup(
             'pytest',
             'boto3',
             'moto',
-            'fire'
+            'fire',
+            'twine'
         ]
     },
     license='MIT',
