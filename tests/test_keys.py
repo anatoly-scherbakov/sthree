@@ -8,29 +8,29 @@ from moto import mock_s3
 from sthree import Keys
 
 
-def cats_bucket() -> str:
+def bucket() -> str:
     s3 = boto3.resource('s3', region_name='us-east-1')
 
-    bucket_name = f'cats-{uuid.uuid4().hex}'
+    bucket_name = f'animals-{uuid.uuid4().hex}'
 
     bucket = s3.Bucket(bucket_name)
     bucket.create()
 
-    for cat in Path('cats_bucket').iterdir():
+    for f in Path('animals').rglob('*.txt'):
         bucket.put_object(
             Bucket=bucket_name,
-            Key=f'cats/{cat.name}',
-            Body=cat.read_text()
+            Key=str(f),
+            Body=f.read_text()
         )
 
     return bucket_name
 
 
 @mock_s3
-def test_keys():
+def test_all_keys():
     # This is not a fixture: it must be under the same @mock_s3 environment as
     # the test itself.
-    bucket_name = cats_bucket()
+    bucket_name = bucket()
 
     keys = Keys(bucket_name=bucket_name)
 
@@ -40,7 +40,26 @@ def test_keys():
     ))
 
     assert filenames == [
-        'cats/begemot.txt',
-        'cats/james.txt',
-        'cats/kitty.txt'
+        'animals/cats/begemot.txt',
+        'animals/cats/james.txt',
+        'animals/cats/kitty.txt',
+        'animals/dogs/rex.txt'
+    ]
+
+
+@mock_s3
+def test_keys_dogs_only():
+    # This is not a fixture: it must be under the same @mock_s3 environment as
+    # the test itself.
+    bucket_name = bucket()
+
+    keys = Keys(bucket_name=bucket_name, prefix='animals/dogs')
+
+    filenames = list(map(
+        operator.attrgetter('key'),
+        keys
+    ))
+
+    assert filenames == [
+        'animals/dogs/rex.txt'
     ]

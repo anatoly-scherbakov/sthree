@@ -45,6 +45,7 @@ class Keys(Iterable[models.Key]):
 
         page_iterator = paginator.paginate(
             Bucket=self.bucket_name,
+            Prefix=self.prefix,
             PaginationConfig={
                 'PageSize': self.page_size
             }
@@ -73,4 +74,3 @@ class Keys(Iterable[models.Key]):
 
     def __iter__(self):
         return self._recurse()
-
